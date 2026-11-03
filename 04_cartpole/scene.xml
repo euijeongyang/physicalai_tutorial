@@ -18,7 +18,7 @@
 
             <body name="cart" pos="0 0 0.4">
                   <joint name="cart_joint" type="slide" axis="1 0 0"
-                        limited="true" range="-2.5 2.5" damping="0.1" />
+                        limited="true" range="-2.5 2.5" damping="0.1 0 0" />
                   <inertial pos="0 0 0" mass="0.2"
                         diaginertia="0.002 0.002 0.002" />
                   <geom name="cart_geom" type="box" size="0.2 0.14 0.1"
