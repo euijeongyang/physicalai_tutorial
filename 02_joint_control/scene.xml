@@ -1,0 +1,52 @@
+<mujoco model="joint_control">
+
+    <compiler angle="radian"/>
+
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+
+    <worldbody>
+
+        <!-- Ground -->
+        <geom
+            name="ground"
+            type="plane"
+            size="5 5 0.1"
+            rgba="0.8 0.8 0.8 1"/>
+
+        <!-- Robot Link -->
+        <body name="link" pos="0 0 1">
+
+            <!-- 회전 1자유도를 가지는 관절, y축 중심으로 회전 -->
+            <joint
+                name="joint1"
+                type="hinge"
+                axis="0 1 0"
+                limited="true"
+                range="-1.57 1.57"
+                damping="0.5"/>
+
+            <geom
+                name="link_geom"
+                type="capsule"
+                fromto="0 0 0 0 0 0.8"
+                size="0.05"
+                mass="1"
+                rgba="0.2 0.4 0.9 1"/>
+
+        </body>
+
+    </worldbody>
+
+    <actuator>
+
+        <!-- kp: position gain, kv: velocity gain -->
+        <position
+            name="motor1"
+            joint="joint1"
+            kp="100"
+            kv="10"
+            ctrlrange="-1.57 1.57"/>
+
+    </actuator>
+
+</mujoco>

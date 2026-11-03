@@ -1,0 +1,79 @@
+<mujoco model="cartpole">
+
+    <compiler angle="radian"/>
+
+    <option timestep="0.002" gravity="0 0 -9.81"/>
+
+    <worldbody>
+
+        <!-- Ground -->
+        <geom
+            name="ground"
+            type="plane"
+            size="5 5 0.1"
+            rgba="0.8 0.8 0.8 1"/>
+
+        <!-- Rail -->
+        <geom
+            name="rail"
+            type="box"
+            pos="0 0 0.15"
+            size="2.5 0.05 0.05"
+            contype="0"
+            conaffinity="0"
+            rgba="0.3 0.3 0.3 1"/>
+
+        <!-- Cart -->
+        <body name="cart" pos="0 0 0.35">
+
+            <!-- hinge는 회전 운동, slide는 직선 운동 -->
+            <joint
+                name="cart_joint"
+                type="slide"
+                axis="1 0 0"
+                limited="true"
+                range="-2 2"
+                damping="0.1"/>
+
+            <geom
+                name="cart_geom"
+                type="box"
+                size="0.2 0.15 0.1"
+                mass="1"
+                rgba="0.2 0.4 0.9 1"/>
+
+            <!-- Pole -->
+            <body name="pole" pos="0 0 0.1">
+
+                <joint
+                    name="pole_joint"
+                    type="hinge"
+                    axis="0 1 0"
+                    damping="0.01"/>
+
+                <geom
+                    name="pole_geom"
+                    type="capsule"
+                    fromto="0 0 0 0 0 0.6"
+                    size="0.03"
+                    mass="0.2"
+                    rgba="0.9 0.2 0.2 1"/>
+
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <actuator>
+
+        <motor
+            name="cart_motor"
+            joint="cart_joint"
+            gear="1"
+            ctrllimited="true"
+            ctrlrange="-30 30"/>
+
+    </actuator>
+
+</mujoco>
