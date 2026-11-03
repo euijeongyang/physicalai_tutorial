@@ -33,7 +33,11 @@ b = 0.1       # Cart viscous damping (N*s/m)
 g = 9.8       # Gravity (m/s^2)
 
 def report_model():
-    """Linearization about the upright equilibrium; [x, xdot, phi, phidot]."""
+    """
+        상태 공간 행렬 계산
+        Linearization about the upright equilibrium;
+        [x, xdot, phi, phidot].
+    """
     den = I * (M + m) + M * m * l**2
     A = np.array([
         [0, 1, 0, 0],
@@ -83,7 +87,12 @@ def main():
         parser.error("--duration must be positive")
 
     A, B = report_model()
-    poles = [-0.23 + 0.2346j, -0.23 - 0.2346j, -2.30, -2.53]
+    poles = [
+        -0.23 + 0.2346j,
+        -0.23 - 0.2346j,
+        -2.30,
+        -2.53
+    ]
     K = place_poles(A, B[:, None], poles).gain_matrix[0]
     print("Calculated pole-placement gain K:", np.round(K, 4))
     print("Report gain K:                 [-0.0936 -0.5765 18.9724 8.8193]")
